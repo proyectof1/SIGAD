@@ -80,4 +80,10 @@ public class FaltaVO {
 		this.obtervaciones = obtervaciones;
 	}
 
+	public String toString() {
+		return ("[" + "id = " + id + ", idAlumno = " + idAlumno + ", sesion = "
+				+ sesion + ", materia = " + materia + ", tipo = " + tipo
+				+ ", justificado = " + justificado + ", obtervaciones = " + obtervaciones + "]");
+	}	
+	
 }
