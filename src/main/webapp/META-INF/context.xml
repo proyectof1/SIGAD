@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+
+<Resource name="jdbc/mysql" auth="Container"
+              type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://192.168.26.57:3306/opensigad2"
+              username="root" password="root" maxTotal="20" maxIdle="10"
+              maxWaitMillis="-1"/>          
+</context>
