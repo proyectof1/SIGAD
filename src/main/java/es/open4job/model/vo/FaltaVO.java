@@ -1,27 +1,31 @@
 package es.open4job.model.vo;
 
+import java.util.Date;
+
 public class FaltaVO {
 
 	private int id;
-	private int idAlumno;
+	private int id_alumno;
+	private Date fecha;
 	private String sesion;
 	private String materia;
 	private String tipo;
 	private String justificado;
-	private String obtervaciones;
+	private String observaciones;
 
 	public FaltaVO() {
 	}
 	
-	public FaltaVO(int id, int idAlumno, String sesion, String materia,
-			String tipo, String justificado, String obtervaciones) {
+	public FaltaVO(int id, int id_alumno, Date fecha, String sesion, String materia,
+			String tipo, String justificado, String observaciones) {
 		this.id = id;
-		this.idAlumno = idAlumno;
+		this.id_alumno = id_alumno;
+		this.fecha = fecha;
 		this.sesion = sesion;
 		this.materia = materia;
 		this.tipo = tipo;
 		this.justificado = justificado;
-		this.obtervaciones = obtervaciones;
+		this.observaciones = observaciones;
 	}
 
 	public int getId() {
@@ -32,13 +36,21 @@ public class FaltaVO {
 		this.id = id;
 	}
 	
-	public int getIdAlumno() {
-		return idAlumno;
+	public int getId_alumno() {
+		return id_alumno;
 	}
 
-	public void setIdAlumno(int idAlumno) {
-		this.idAlumno = idAlumno;
+	public void setId_alumno(int id_alumno) {
+		this.id_alumno = id_alumno;
 	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}	
 
 	public String getSesion() {
 		return sesion;
@@ -72,18 +84,18 @@ public class FaltaVO {
 		this.justificado = justificado;
 	}
 
-	public String getObtervaciones() {
-		return obtervaciones;
+	public String getObservaciones() {
+		return observaciones;
 	}
 
-	public void setObtervaciones(String obtervaciones) {
-		this.obtervaciones = obtervaciones;
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	public String toString() {
-		return ("[" + "id = " + id + ", idAlumno = " + idAlumno + ", sesion = "
-				+ sesion + ", materia = " + materia + ", tipo = " + tipo
-				+ ", justificado = " + justificado + ", obtervaciones = " + obtervaciones + "]");
-	}	
+		return ("[" + "id = " + id + ", id_alumno = " + id_alumno + ", fecha = "
+				+ fecha + ", sesion = "	+ sesion + ", materia = " + materia + ", tipo = " + tipo
+				+ ", justificado = " + justificado + ", observaciones = " + observaciones + "]");
+	}
 	
 }

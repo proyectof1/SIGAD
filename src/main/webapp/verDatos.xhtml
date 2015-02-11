@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css" />
+</h:head>
+
+<h:body>
+
+	<h1>SIGAD - Tabla Faltas</h1>
+
+	<h2>SIGAD - Ver faltas de un alumno por ID_Alumno</h2>
+
+	<h:dataTable value="#{faltaDAO.verFaltasAlumno(3)}" var="r"
+		styleClass="order-table" headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-even-row">
+
+		<h:column>
+			<f:facet name="header">
+    				ID
+    			</f:facet>
+    				#{r.id}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				ID_Alumno
+    			</f:facet>
+    				#{r.id_alumno}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Fecha
+    			</f:facet>
+    				#{r.fecha}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Sesion
+				</f:facet>
+    				#{r.sesion}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Materia
+				</f:facet>
+    				#{r.materia}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Tipo
+				</f:facet>
+    				#{r.tipo}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Justificado
+				</f:facet>
+    				#{r.justificado}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Observaciones
+				</f:facet>
+    				#{r.observaciones}
+    		</h:column>
+
+	</h:dataTable>
+
+
+	<h2>SIGAD - Borrar una falta</h2>
+#{faltaDAO.borrarFalta(6)}
+
+	<h2>SIGAD - Actualizar una falta</h2>
+#{faltaDAO.actualizarFalta(5)}
+
+	<h2>SIGAD - Ver TODAS las faltas</h2>
+
+
+	<h:dataTable value="#{faltaDAO.verFaltas()}" var="r"
+		styleClass="order-table" headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-even-row">
+
+		<h:column>
+			<f:facet name="header">
+    				ID
+    			</f:facet>
+    				#{r.id}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				ID_Alumno
+    			</f:facet>
+    				#{r.id_alumno}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Fecha
+    			</f:facet>
+    				#{r.fecha}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Sesion
+				</f:facet>
+    				#{r.sesion}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Materia
+				</f:facet>
+    				#{r.materia}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Tipo
+				</f:facet>
+    				#{r.tipo}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Justificado
+				</f:facet>
+    				#{r.justificado}
+    		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+    				Observaciones
+				</f:facet>
+    				#{r.observaciones}
+    		</h:column>
+
+	</h:dataTable>
+
+</h:body>
+
+</html>

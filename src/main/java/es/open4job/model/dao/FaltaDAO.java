@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -15,7 +18,8 @@ import javax.sql.DataSource;
 import es.open4job.model.interfaz.FaltaDAOInterface;
 import es.open4job.model.vo.FaltaVO;
 
-
+@ManagedBean
+@SessionScoped
 public class FaltaDAO implements FaltaDAOInterface {
 
 	private DataSource ds = null;
@@ -40,8 +44,8 @@ public class FaltaDAO implements FaltaDAOInterface {
 			}
 	}
 
-	// Listado de aparcamientos
-	public List<FaltaVO> verFaltas(int idAlumno) {
+	// Listado de las faltas de un alumno
+	public List<FaltaVO> verFaltasAlumno(int id_alumno) {
 
 		try {
 			con = ds.getConnection();
@@ -63,24 +67,26 @@ public class FaltaDAO implements FaltaDAOInterface {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 
-		String query = "SELECT * FROM faltas WHERE idAlumno = ? ORDER BY id";
-
+		String query = "SELECT * FROM faltas WHERE id_alumno = ? ORDER BY id";
+		
 		try {
 			pstm = con.prepareStatement(query);
-			pstm.setInt(1, idAlumno);
+			pstm.setInt(1, id_alumno);
 
-			rs = pstm.executeQuery(query);
+			rs = pstm.executeQuery();
 
 			while (rs.next()) {
 				int id = rs.getInt(1);
-				String sesion = rs.getString(3);
-				String materia = rs.getString(4);
-				String tipo = rs.getString(5);
-				String justificado = rs.getString(6);
-				String observaciones = rs.getString(7);
+				Date fecha = rs.getDate(3);
+				String sesion = rs.getString(4);
+				String materia = rs.getString(5);
+				String tipo = rs.getString(6);
+				String justificado = rs.getString(7);
+				String observaciones = rs.getString(8);
 
-				FaltaVO falta = new FaltaVO(id, idAlumno, sesion, materia,
+				FaltaVO falta = new FaltaVO(id, id_alumno, fecha, sesion, materia,
 						tipo, justificado, observaciones);
+				
 				faltas.add(falta);
 			}
 
@@ -104,7 +110,7 @@ public class FaltaDAO implements FaltaDAOInterface {
 		return faltas;
 	}
 
-	// Obtiene los datos de un aparcamiento en concreto
+	// Ver los datos de una falta 
 	public FaltaVO verDatosFalta(int idFalta) {
 
 		try {
@@ -137,15 +143,19 @@ public class FaltaDAO implements FaltaDAOInterface {
 
 			while (rs.next()) {
 				int id = rs.getInt(1);
-				int idAlumno = rs.getInt(2);
-				String sesion = rs.getString(3);
-				String materia = rs.getString(4);
-				String tipo = rs.getString(5);
-				String justificado = rs.getString(6);
-				String observaciones = rs.getString(7);
+				int id_alumno = rs.getInt(2);
+				Date fecha = rs.getDate(3);
+				String sesion = rs.getString(4);
+				String materia = rs.getString(5);
+				String tipo = rs.getString(6);
+				String justificado = rs.getString(7);
+				String observaciones = rs.getString(8);
 
-				falta = new FaltaVO(id, idAlumno, sesion, materia, tipo,
+				falta = new FaltaVO(id, id_alumno, fecha, sesion, materia, tipo,
 						justificado, observaciones);
+				
+				//falta.add(falta);
+
 			}
 
 		} catch (SQLException e) {
@@ -168,18 +178,156 @@ public class FaltaDAO implements FaltaDAOInterface {
 		return falta;
 	}
 
-	public List<FaltaVO> verFaltas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void actualizarFalta(int idFalta) {
+		
+		try {
+			con = ds.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-	public void actualizarFalta(FaltaVO falta) {
-		// TODO Auto-generated method stub
+		if (con == null)
+			try {
+				throw new SQLException(
+						"No se puede obtener la conexión de base de datos");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		FaltaVO falta = null;
+		PreparedStatement pstm = null;
+		int cantidad = 0;
+
+		String query = "UPDATE faltas SET tipo = 'xxx' WHERE id = ?";
+		
+		try {
+			pstm = con.prepareStatement(query);
+			pstm.setInt(1, idFalta);
+			cantidad = pstm.executeUpdate();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			if (pstm != null) {
+				try {
+					pstm.close();
+				} catch (Exception e) {
+				}
+			}
+		}
 		
 	}
 
-	public void borrarFalta(int id) {
-		// TODO Auto-generated method stub
+	
+	public void borrarFalta(int idFalta) {
+		
+		try {
+			con = ds.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		if (con == null)
+			try {
+				throw new SQLException(
+						"No se puede obtener la conexión de base de datos");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		FaltaVO falta = null;
+		PreparedStatement pstm = null;
+		int cantidad = 0;
+
+		String query = "DELETE FROM faltas WHERE id = ?";
+		
+		try {
+			pstm = con.prepareStatement(query);
+			pstm.setInt(1, idFalta);
+			cantidad = pstm.executeUpdate();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			if (pstm != null) {
+				try {
+					pstm.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+		
+	}
+
+	public List<FaltaVO> verFaltas() {
+		try {
+			con = ds.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		if (con == null)
+			try {
+				throw new SQLException(
+						"No se puede obtener la conexión de base de datos");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		List<FaltaVO> faltas = new ArrayList<FaltaVO>();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM faltas ORDER BY id";
+		
+		try {
+			pstm = con.prepareStatement(query);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				int id_alumno = rs.getInt(2);
+				Date fecha = rs.getDate(3);
+				String sesion = rs.getString(4);
+				String materia = rs.getString(5);
+				String tipo = rs.getString(6);
+				String justificado = rs.getString(7);
+				String observaciones = rs.getString(8);
+
+				FaltaVO falta = new FaltaVO(id, id_alumno, fecha, sesion, materia,
+						tipo, justificado, observaciones);
+				
+				faltas.add(falta);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+			}
+			if (pstm != null) {
+				try {
+					pstm.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+
+		return faltas;
 		
 	}
 
